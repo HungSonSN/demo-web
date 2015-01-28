@@ -72,4 +72,12 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.authenticated?(:remember, '')
   end
 
+  test "associated entries should be destroyed" do
+    @user.save
+    @user.entries.create!(title: "son sieu nhan", content: "Lorem ipsum")
+    assert_difference 'Entry.count', -1 do
+      @user.destroy
+    end
+  end
+
 end
