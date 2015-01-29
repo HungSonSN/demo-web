@@ -12,7 +12,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    #entry = @user.entries(:include => :comments)
     @entries = @user.entries.paginate(page: params[:page])
+    @comment = Comment.new
   end  
 
   def following

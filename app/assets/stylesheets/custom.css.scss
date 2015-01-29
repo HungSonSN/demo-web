@@ -189,6 +189,20 @@ aside {
   }
 }
 
+.users_index {
+  overflow: auto;
+  margin-top: 10px;
+  .user-profile {
+    float: left;
+    width: 100px;
+    height: 150px;
+    margin: 3px 3px;
+    a {
+      padding: 0;
+    }
+  }
+}
+
 .users.follow {
   padding: 0;
 }
@@ -283,6 +297,24 @@ input {
   }
 }
 
+.comments {
+  border: 1px solid $gray;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.comment-editor {
+  margin-left: 20px;
+}
+
+.comment-link {
+  margin-left: 20px;
+  margin-top: 5px;
+  color: blue;
+  text-decoration: underline;
+  font-size: italic;
+}
+
 aside {
   textarea {
     height: 100px;
@@ -295,4 +327,12 @@ span.picture {
   input {
     border: 0;
   }
+}
+
+.clear {
+  clear: both;
+}
+
+.test {
+  float: left
 }

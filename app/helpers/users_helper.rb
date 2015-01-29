@@ -6,4 +6,8 @@ module UsersHelper
     image_tag(gravatar_url, alt: user.name, class: "gravatar")
   end
 
+  def get_user(id)
+    User.find(id)
+  end  
+
 end

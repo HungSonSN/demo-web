@@ -20,17 +20,25 @@
   </div>
 <% else %>
   <div class="center jumbotron">
-    <h1>Welcome to the Sample App</h1>
+    <h1>Welcome to Blog App</h1>
 
     <h2>
-      This is the home page for the
-      <a href="http://www.railstutorial.org/">Ruby on Rails Tutorial</a>
-      sample application.
+      Please sign up to make friend with everyone
     </h2>
 
     <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
   </div>
 
-  <%= link_to image_tag("rails.png", alt: "Rails logo"),
-              'http://rubyonrails.org/' %>
+  <div class="row">
+    <% if @users.any? %>
+        <div class="users_index">
+          <% @users.each do |user| %>
+            <div class="user-profile">
+              <span><%= link_to gravatar_for(user, size: 100), user %></span>
+              <span><%= user.name %></span>
+            </div> 
+          <% end %>
+        </div>
+      <% end %>
+  </div>  
 <% end %>

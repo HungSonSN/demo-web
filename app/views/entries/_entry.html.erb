@@ -9,4 +9,48 @@
       <%= link_to "delete", entry, method: :delete, data: { confirm: "You sure?" } %>
     <% end %>
   </span>
+  <div class="comment-part">
+     <div id="hidden-<%= entry.id %>">
+        <span class="comment-link">
+           Comment <%= entry.comments.count %> 
+        </span>  
+     </div> 
+     <div class="comment-hidden-<%= entry.id %>" style="display:none;">
+      <% unless entry.comments.count == 0 %>
+        <div class="comment-show">
+          <ol class="comments">
+            <%= render entry.comments %>      
+          </ol>
+        </div>
+      <% end %>
+      <div class="comment-editor">
+        <% if logged_in? %>
+          <%= form_for(@comment) do |f| %>
+            <div>
+              <%= hidden_field_tag :entry_id, entry.id %>
+              <%= hidden_field_tag :user_id, current_user.id %>  
+            </div>
+            <p>
+              <br />
+              <%= f.text_field :content %>
+              <%= f.submit "Add comment", class: "btn btn-primary" %>  
+            </p>  
+            
+          <% end %>
+        <% end %>
+      </div>
+      <div class="comment-link">
+        <span id="shorter-<%= entry.id %>">Shorter</span>
+      </div>  
+     </div> 
+  </div>  
 </li>
+
+<script type="text/javascript">
+   $("#hidden-<%= entry.id %>").click(function() {
+      $('.comment-hidden-<%= entry.id %>').toggle();
+});
+   $("#shorter-<%= entry.id %>").click(function(){
+      $('.comment-hidden-<%= entry.id %>').toggle();
+   });
+</script>
