@@ -1,23 +1,35 @@
 class CommentsController < ApplicationController
   before_action :logged_in_user
   before_action :correct_user, only: :destroy
-  def create
-    entry = Entry.find_by(id: params[:entry_id])
-    @comment = entry.comments.build(comment_params)
-    @comment.update_attribute(:user_id, params[:user_id])
-    #debugger
-    if @comment.save
-      flash[:success] = "Comment created"
-      redirect_to root_url
-    else 
-      flash[:danger] = "Comment not create"
-      redirect_to root_url
-    end  
+  def create   
+    respond_to do |format|
+      @entry = Entry.find_by(id: params[:comment][:entry_id])
+      @comment = @entry.comments.build(comment_params)
+      @comment.update_attribute(:user_id, params[:user_id])
+      if @comment.save  
+        format.html {
+          redirect_to(root_url, notice: "Comment created")
+        }
+        #debugger
+        format.js
+        format.json { render json: @comment, status: :created, location: @comment }
+      else 
+        format.html { render :action => 'users/show' }
+        format.js
+      end
+    end
   end
   
   def destroy
-    @comment.destroy
-    redirect_to request.referrer || root_url
+    
+    respond_to do |format|
+      @comment.destroy
+      format.html {
+        redirect_to root_url
+      }
+      format.js {}
+    end  
+    #redirect_to request.referrer || root_url
   end  
 
   private 
