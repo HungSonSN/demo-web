@@ -28,7 +28,7 @@
             </ol>
           </div>
       <div class="comment-editor">
-        <% if logged_in? %>
+        <% if logged_in? && current_user.following?(entry.user) || current_user?(entry.user) %>
           <%= form_for(@comment = entry.comments.build, remote: true) do |f| %>
             <div>
               <%= hidden_field :comment, :entry_id %>
